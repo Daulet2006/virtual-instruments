@@ -1,6 +1,6 @@
 'use client'
 
-giimport {
+import {
   ThemeProvider as NextThemesProvider,
   type ThemeProviderProps,
 } from 'next-themes'
