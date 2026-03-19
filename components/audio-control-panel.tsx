@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { Volume2, VolumeX, Music2 } from "lucide-react"
 import { Slider } from "@/components/ui/slider"
+import { KazakhOrnament } from "@/components/kazakh-ornament"
 
 interface AudioControlPanelProps {
   volume: number
@@ -19,8 +20,8 @@ interface AudioControlPanelProps {
 function HUDLabel({ children }: { children: React.ReactNode }) {
   return (
     <span
-      className="text-xs tracking-widest uppercase font-semibold"
-      style={{ color: "oklch(0.55 0.04 255)" }}
+      className="text-[10px] tracking-widest uppercase font-bold"
+      style={{ color: "var(--text-muted)" }}
     >
       {children}
     </span>
@@ -30,7 +31,7 @@ function HUDLabel({ children }: { children: React.ReactNode }) {
 function ValueDisplay({ value, unit = "%" }: { value: string | number; unit?: string }) {
   return (
     <span
-      className="font-mono text-xs tabular-nums"
+      className="font-bold text-xs tabular-nums"
       style={{ color: "var(--gold)" }}
     >
       {value}
@@ -41,20 +42,19 @@ function ValueDisplay({ value, unit = "%" }: { value: string | number; unit?: st
 
 function AudioBar({ value, color }: { value: number; color: string }) {
   return (
-    <div className="flex items-end gap-px h-8">
-      {Array.from({ length: 12 }).map((_, i) => {
-        const barValue = (i + 1) / 12
+    <div className="flex items-end gap-1 h-12 bg-sand/20 p-2 rounded-xl">
+      {Array.from({ length: 15 }).map((_, i) => {
+        const barValue = (i + 1) / 15
         const active = barValue <= value
         return (
           <motion.div
             key={i}
-            className="w-1.5 rounded-t-sm"
+            className="flex-1 rounded-full"
             style={{
-              height: `${40 + i * 5}%`,
-              background: active ? color : "oklch(0.20 0.04 255)",
-              boxShadow: active ? `0 0 4px ${color}60` : "none",
+              height: `${30 + i * 4}%`,
+              background: active ? color : "rgba(200, 148, 42, 0.1)",
             }}
-            animate={active ? { opacity: [0.7, 1, 0.7] } : { opacity: 0.4 }}
+            animate={active ? { opacity: [0.8, 1, 0.8] } : { opacity: 0.3 }}
             transition={{ duration: 1.5, delay: i * 0.05, repeat: Infinity }}
           />
         )
@@ -76,54 +76,52 @@ export function AudioControlPanel({
 }: AudioControlPanelProps) {
   return (
     <div
-      className="rounded-sm p-5 space-y-5 animate-hud-flicker"
+      className="rounded-2xl p-6 space-y-6 shadow-warm border border-gold/10"
       style={{
-        background: "oklch(0.11 0.03 255 / 0.9)",
-        border: "1px solid oklch(0.78 0.16 75 / 0.3)",
-        backdropFilter: "blur(12px)",
+        background: "var(--ivory)",
       }}
     >
       {/* Header */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div
-            className="w-2 h-2 rounded-full"
-            style={{
-              background: isReady ? "oklch(0.70 0.20 145)" : "oklch(0.78 0.16 75)",
-              boxShadow: isReady
-                ? "0 0 8px oklch(0.70 0.20 145 / 0.8)"
-                : "0 0 8px oklch(0.78 0.16 75 / 0.4)",
-              animation: "pulse 2s ease-in-out infinite",
-            }}
-          />
+        <div className="flex items-center gap-3">
+          <KazakhOrnament size={20} variant="medallion" opacity={0.6} animated={false} />
           <span
-            className="text-xs tracking-widest uppercase font-semibold"
+            className="text-[10px] tracking-widest uppercase font-bold"
             style={{ color: "var(--gold)" }}
           >
-            Аудио қозғалтқыш
+            Дыбыс баптаулары
           </span>
         </div>
-        <span className="text-xs font-mono" style={{ color: "oklch(0.40 0.04 255)" }}>
-          {isReady ? "ҚОСЫЛУЛЫ" : "ҚОСЫЛУДА"}
-        </span>
+        <div className="flex items-center gap-2">
+          <div
+            className="w-1.5 h-1.5 rounded-full"
+            style={{
+              background: isReady ? "var(--turquoise)" : "var(--gold)",
+              boxShadow: isReady ? "0 0 6px var(--turquoise)" : "none",
+            }}
+          />
+          <span className="text-[9px] font-bold tracking-wider" style={{ color: "var(--text-muted)" }}>
+            {isReady ? "БЕЛСЕНДІ" : "ЖҮКТЕЛУДЕ"}
+          </span>
+        </div>
       </div>
 
       {/* Audio bars visualizer */}
-      <AudioBar value={muted ? 0 : volume} color="oklch(0.78 0.16 75)" />
+      <AudioBar value={muted ? 0 : volume} color="var(--gold)" />
 
       {/* Volume */}
-      <div className="space-y-2">
+      <div className="space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <button
               onClick={onMuteToggle}
-              className="transition-colors"
-              style={{ color: muted ? "oklch(0.70 0.18 350)" : "var(--gold)" }}
+              className="p-1.5 rounded-full hover:bg-gold/5 transition-colors"
+              style={{ color: muted ? "var(--crimson)" : "var(--gold)" }}
               aria-label={muted ? "Дыбысты қосу" : "Дыбысты өшіру"}
             >
-              {muted ? <VolumeX size={14} /> : <Volume2 size={14} />}
+              {muted ? <VolumeX size={16} /> : <Volume2 size={16} />}
             </button>
-            <HUDLabel>Дыбыс деңгейі</HUDLabel>
+            <HUDLabel>Дыбыс қаттылығы</HUDLabel>
           </div>
           <ValueDisplay value={Math.round(volume * 100)} />
         </div>
@@ -134,22 +132,15 @@ export function AudioControlPanel({
           step={1}
           onValueChange={([v]) => onVolumeChange(v / 100)}
           className="w-full"
-          style={
-            {
-              "--slider-track": "oklch(0.20 0.04 255)",
-              "--slider-range": "oklch(0.78 0.16 75)",
-              "--slider-thumb": "oklch(0.78 0.16 75)",
-            } as React.CSSProperties
-          }
         />
       </div>
 
       {/* Pitch */}
-      <div className="space-y-2">
+      <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Music2 size={14} style={{ color: "oklch(0.68 0.20 240)" }} />
-            <HUDLabel>Нота биіктігі</HUDLabel>
+          <div className="flex items-center gap-2 px-1.5">
+            <Music2 size={14} style={{ color: "var(--turquoise)" }} />
+            <HUDLabel>Үн биіктігі</HUDLabel>
           </div>
           <ValueDisplay value={pitch > 0 ? `+${pitch}` : pitch} unit=" st" />
         </div>
@@ -161,22 +152,23 @@ export function AudioControlPanel({
           onValueChange={([v]) => onPitchChange(v - 12)}
           className="w-full"
         />
-        <div className="flex justify-between text-xs" style={{ color: "oklch(0.35 0.04 255)" }}>
-          <span>-12 st</span>
-          <span>0</span>
-          <span>+12 st</span>
+        <div className="flex justify-between text-[9px] font-bold px-1" style={{ color: "var(--text-muted)" }}>
+          <span>-12</span>
+          <span>Орташа</span>
+          <span>+12</span>
         </div>
       </div>
 
       {/* Reverb */}
-      <div className="space-y-2">
+      <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ color: "oklch(0.65 0.18 180)" }}>
-              <path d="M2 7 Q4 4 7 7 Q10 10 12 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-              <path d="M1 10 Q3.5 6 7 10 Q10.5 14 13 10" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" fill="none" strokeOpacity="0.5" />
-            </svg>
-            <HUDLabel>Реверберация</HUDLabel>
+          <div className="flex items-center gap-2 px-1.5">
+            <div className="w-3.5 h-3.5 flex items-center justify-center" style={{ color: "var(--gold)" }}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M4 12c4-4 8 8 12 0s4-4 4-4" />
+              </svg>
+            </div>
+            <HUDLabel>Жаңғырық</HUDLabel>
           </div>
           <ValueDisplay value={Math.round(reverb * 100)} />
         </div>
@@ -190,22 +182,13 @@ export function AudioControlPanel({
         />
       </div>
 
-      {/* Status bar */}
-      <div
-        className="flex items-center justify-between pt-2 border-t"
-        style={{ borderColor: "oklch(0.22 0.04 255)" }}
-      >
-        <span className="text-xs font-mono" style={{ color: "oklch(0.35 0.04 255)" }}>
-          WEB AUDIO API v2
-        </span>
-        <div className="flex gap-1">
-          {[1, 2, 3].map((i) => (
-            <motion.div
-              key={i}
-              className="w-1 h-1 rounded-full"
-              style={{ background: "var(--gold)" }}
-              animate={{ opacity: [0.3, 1, 0.3] }}
-              transition={{ duration: 1.5, delay: i * 0.3, repeat: Infinity }}
+      {/* Divider */}
+      <div className="pt-2 border-t border-gold/10 flex justify-center">
+        <div className="flex gap-1.5 py-1">
+          {[1, 2, 3, 4, 5].map((i) => (
+            <div 
+              key={i} 
+              className="w-1 h-1 rounded-full bg-gold/20"
             />
           ))}
         </div>
@@ -213,3 +196,4 @@ export function AudioControlPanel({
     </div>
   )
 }
+

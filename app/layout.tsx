@@ -1,26 +1,28 @@
-import type { Metadata } from 'next'
-import { Rajdhani, Cinzel } from 'next/font/google'
+import type { Metadata, Viewport } from 'next'
+import { Lora, Playfair_Display } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const rajdhani = Rajdhani({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-rajdhani',
+const lora = Lora({
+  subsets: ['latin', 'cyrillic'],
+  weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  variable: '--font-lora',
 })
 
-const cinzel = Cinzel({
-  subsets: ['latin'],
-  weight: ['400', '600', '700', '900'],
-  variable: '--font-cinzel',
+const playfair = Playfair_Display({
+  subsets: ['latin', 'cyrillic'],
+  weight: ['400', '500', '600', '700', '800', '900'],
+  style: ['normal', 'italic'],
+  variable: '--font-playfair',
 })
 
 export const metadata: Metadata = {
-  title: 'Virtual Museum of Kazakh Musical Instruments',
-  description: 'Experience the ancient musical legacy of Kazakhstan through an immersive cyber-museum. Explore, play, and learn about traditional Kazakh instruments.',
-  generator: 'v0.app',
-  keywords: ['Kazakh music', 'dombra', 'kobyz', 'virtual museum', 'Kazakhstan', 'traditional instruments'],
-  themeColor: '#0a0e1a',
+  title: 'Қазақ Музыкалық Аспаптарының Виртуалды Мұражайы',
+  description:
+    'Қазақстанның ежелгі музыкалық мұрасын виртуалды мұражай арқылы зерттеңіз. Домбыра, қобыз, жетіген және басқа да дәстүрлі аспаптармен танысыңыз.',
+  keywords: ['Қазақ музыкасы', 'домбыра', 'қобыз', 'виртуалды мұражай', 'Қазақстан', 'дәстүрлі аспаптар'],
+  themeColor: '#C8942A',
 }
 
 export default function RootLayout({
@@ -29,8 +31,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${rajdhani.variable} ${cinzel.variable} font-sans antialiased`}>
+    <html lang="kk">
+      <body className={`${lora.variable} ${playfair.variable} antialiased`}>
         {children}
         <Analytics />
       </body>

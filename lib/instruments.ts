@@ -1,4 +1,4 @@
-export type InstrumentCategory = "string" | "percussion" | "plucked"
+export type InstrumentCategory = "string" | "percussion" | "plucked" | "wind"
 
 export interface InstrumentString {
   id: string
@@ -21,7 +21,6 @@ export interface Instrument {
   strings?: InstrumentString[]
   icon: string
   color: string
-  glowColor: string
 }
 
 export const instruments: Instrument[] = [
@@ -38,12 +37,11 @@ export const instruments: Instrument[] = [
       "The Dombra is considered a symbol of the Kazakh soul. Every home traditionally had one hanging on the wall. It features prominently in national mythology, with the legendary hero Koblandy Batyr said to have composed battle songs on his Dombra before every campaign.",
     tuning: "Open tuning in fourths or fifths. Primary: A-D or G-D. The two strings create a resonant drone-melody texture unique to the steppe tradition.",
     strings: [
-      { id: "s1", note: "A4", frequency: 440, y: 35, color: "oklch(0.78 0.16 75)" },
-      { id: "s2", note: "D4", frequency: 293.66, y: 55, color: "oklch(0.65 0.13 75)" },
+      { id: "s1", note: "A4", frequency: 440, y: 35, color: "#C8942A" },
+      { id: "s2", note: "D4", frequency: 293.66, y: 55, color: "#B87D2E" },
     ],
     icon: "𝄞",
-    color: "oklch(0.78 0.16 75)",
-    glowColor: "oklch(0.78 0.16 75 / 0.6)",
+    color: "#C8942A",
   },
   {
     id: "kobyz",
@@ -58,12 +56,11 @@ export const instruments: Instrument[] = [
       "The Kobyz holds deep spiritual significance in Kazakh culture. The haunting, mournful sound was said to connect the living world with the spirit realm. Today it is recognized as a UNESCO Intangible Cultural Heritage, and its unique sound has been incorporated into modern orchestral compositions.",
     tuning: "Two horsehair strings tuned in fifths. Traditional: A-E or D-A. The overtone-rich timbre creates an otherworldly resonance ideal for the instrument's ceremonial roots.",
     strings: [
-      { id: "s1", note: "A3", frequency: 220, y: 33, color: "oklch(0.55 0.18 255)" },
-      { id: "s2", note: "E3", frequency: 164.81, y: 53, color: "oklch(0.45 0.15 255)" },
+      { id: "s1", note: "A3", frequency: 220, y: 33, color: "#2A7B7C" },
+      { id: "s2", note: "E3", frequency: 164.81, y: 53, color: "#3A8B8C" },
     ],
     icon: "♩",
-    color: "oklch(0.55 0.18 255)",
-    glowColor: "oklch(0.55 0.18 255 / 0.6)",
+    color: "#2A7B7C",
   },
   {
     id: "jetigen",
@@ -78,17 +75,16 @@ export const instruments: Instrument[] = [
       "The Jetigen occupies a unique place in Kazakh cosmology. Unlike the Dombra which accompanied epic poetry, the Jetigen was played for introspective meditation. Court musicians played it for khans, and its delicate sound was considered a bridge between earthly and celestial realms.",
     tuning: "Seven strings in pentatonic scale: G-A-C-D-E-G-A. Each string is traditionally tuned to a specific natural harmonic, creating a shimmering resonance.",
     strings: [
-      { id: "s1", note: "G4", frequency: 392, y: 20, color: "oklch(0.70 0.16 75)" },
-      { id: "s2", note: "A4", frequency: 440, y: 30, color: "oklch(0.75 0.16 75)" },
-      { id: "s3", note: "C5", frequency: 523.25, y: 40, color: "oklch(0.78 0.16 75)" },
-      { id: "s4", note: "D5", frequency: 587.33, y: 50, color: "oklch(0.75 0.16 75)" },
-      { id: "s5", note: "E5", frequency: 659.25, y: 60, color: "oklch(0.70 0.16 75)" },
-      { id: "s6", note: "G5", frequency: 784, y: 70, color: "oklch(0.65 0.16 75)" },
-      { id: "s7", note: "A5", frequency: 880, y: 80, color: "oklch(0.60 0.16 75)" },
+      { id: "s1", note: "G4", frequency: 392, y: 20, color: "#C8942A" },
+      { id: "s2", note: "A4", frequency: 440, y: 30, color: "#B87D2E" },
+      { id: "s3", note: "C5", frequency: 523.25, y: 40, color: "#C8942A" },
+      { id: "s4", note: "D5", frequency: 587.33, y: 50, color: "#B87D2E" },
+      { id: "s5", note: "E5", frequency: 659.25, y: 60, color: "#C8942A" },
+      { id: "s6", note: "G5", frequency: 784, y: 70, color: "#B87D2E" },
+      { id: "s7", note: "A5", frequency: 880, y: 80, color: "#C8942A" },
     ],
     icon: "♬",
-    color: "oklch(0.70 0.16 140)",
-    glowColor: "oklch(0.70 0.16 140 / 0.6)",
+    color: "#6B8C3A",
   },
   {
     id: "dangyra",
@@ -103,8 +99,7 @@ export const instruments: Instrument[] = [
       "The Dangyra's rhythmic patterns were believed to open pathways between worlds. Each beat was a heartbeat of the cosmic order, and complex polyrhythms could guide souls through the spirit world during healing rituals. The drum was buried with its shaman, as no other person could use it safely.",
     tuning: "Single membrane drum, traditionally tuned to a low fundamental around A2-D3. Pitch varies with humidity; shamans would warm the drum head over fire to tighten it before ceremonies.",
     icon: "◉",
-    color: "oklch(0.70 0.18 350)",
-    glowColor: "oklch(0.70 0.18 350 / 0.6)",
+    color: "#8B2B2B",
   },
   {
     id: "sherter",
@@ -119,13 +114,12 @@ export const instruments: Instrument[] = [
       "The Sherter was associated with the domestic and feminine sphere of Kazakh culture. While men played the Dombra for epic poetry and public performance, women played the Sherter in the yurt, creating an intimate musical tradition that preserved a different dimension of Kazakh lyrical expression.",
     tuning: "Three strings in a major or minor triad configuration. Standard: D-A-D or G-D-G. The middle string often serves as a melody string while outer strings provide drone harmonics.",
     strings: [
-      { id: "s1", note: "D5", frequency: 587.33, y: 30, color: "oklch(0.78 0.16 75)" },
-      { id: "s2", note: "A4", frequency: 440, y: 50, color: "oklch(0.70 0.16 75)" },
-      { id: "s3", note: "D4", frequency: 293.66, y: 70, color: "oklch(0.62 0.16 75)" },
+      { id: "s1", note: "D5", frequency: 587.33, y: 30, color: "#C8942A" },
+      { id: "s2", note: "A4", frequency: 440, y: 50, color: "#B87D2E" },
+      { id: "s3", note: "D4", frequency: 293.66, y: 70, color: "#C8942A" },
     ],
     icon: "𝄞",
-    color: "oklch(0.72 0.14 60)",
-    glowColor: "oklch(0.72 0.14 60 / 0.6)",
+    color: "#B87D2E",
   },
   {
     id: "adyrna",
@@ -140,18 +134,17 @@ export const instruments: Instrument[] = [
       "The Adyrna represented divine order and cosmic harmony in Kazakh philosophy. Each string was associated with a celestial body, and playing the full instrument was considered a microcosm of the universe in sound. It was also used in storytelling performances of the great Kazakh epics like Alpamys and Koblandy.",
     tuning: "Multiple strings (typically 14-18) in a diatonic or pentatonic scale across several octaves. Range spans C3 to G6. Traditional tuning follows a descending scale from the longest to shortest string.",
     strings: [
-      { id: "s1", note: "C4", frequency: 261.63, y: 15, color: "oklch(0.78 0.16 75)" },
-      { id: "s2", note: "D4", frequency: 293.66, y: 25, color: "oklch(0.76 0.16 75)" },
-      { id: "s3", note: "E4", frequency: 329.63, y: 35, color: "oklch(0.74 0.16 75)" },
-      { id: "s4", note: "G4", frequency: 392, y: 45, color: "oklch(0.72 0.16 75)" },
-      { id: "s5", note: "A4", frequency: 440, y: 55, color: "oklch(0.70 0.16 75)" },
-      { id: "s6", note: "C5", frequency: 523.25, y: 65, color: "oklch(0.68 0.16 75)" },
-      { id: "s7", note: "D5", frequency: 587.33, y: 75, color: "oklch(0.65 0.16 75)" },
-      { id: "s8", note: "E5", frequency: 659.25, y: 85, color: "oklch(0.62 0.16 75)" },
+      { id: "s1", note: "C4", frequency: 261.63, y: 15, color: "#C8942A" },
+      { id: "s2", note: "D4", frequency: 293.66, y: 25, color: "#B87D2E" },
+      { id: "s3", note: "E4", frequency: 329.63, y: 35, color: "#C8942A" },
+      { id: "s4", note: "G4", frequency: 392, y: 45, color: "#B87D2E" },
+      { id: "s5", note: "A4", frequency: 440, y: 55, color: "#C8942A" },
+      { id: "s6", note: "C5", frequency: 523.25, y: 65, color: "#B87D2E" },
+      { id: "s7", note: "D5", frequency: 587.33, y: 75, color: "#C8942A" },
+      { id: "s8", note: "E5", frequency: 659.25, y: 85, color: "#B87D2E" },
     ],
     icon: "♭",
-    color: "oklch(0.68 0.16 270)",
-    glowColor: "oklch(0.68 0.16 270 / 0.6)",
+    color: "#5B7E9E",
   },
 ]
 
@@ -159,10 +152,12 @@ export const categoryLabels: Record<InstrumentCategory, string> = {
   string: "Ішекті",
   percussion: "Ұрмалы",
   plucked: "Шертіп ойналатын",
+  wind: "Үрмелі",
 }
 
 export const categoryColors: Record<InstrumentCategory, string> = {
-  string: "oklch(0.78 0.16 75)",
-  percussion: "oklch(0.70 0.18 350)",
-  plucked: "oklch(0.72 0.14 60)",
+  string: "#C8942A",
+  percussion: "#8B2B2B",
+  plucked: "#B87D2E",
+  wind: "#2A7B7C",
 }

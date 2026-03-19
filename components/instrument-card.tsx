@@ -11,95 +11,118 @@ interface InstrumentCardProps {
   onPlay?: (instrument: Instrument) => void
 }
 
+/* ── Category icon (warm aesthetic) ── */
 function CategoryIcon({ category }: { category: Instrument["category"] }) {
   if (category === "string" || category === "plucked") {
     return (
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <line x1="2" y1="4" x2="14" y2="4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        <line x1="2" y1="8" x2="14" y2="8" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-        <line x1="2" y1="12" x2="14" y2="12" stroke="currentColor" strokeWidth="0.7" strokeLinecap="round" />
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <line x1="1" y1="3" x2="13" y2="3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+        <line x1="1" y1="7" x2="13" y2="7" stroke="currentColor" strokeWidth="1"   strokeLinecap="round"/>
+        <line x1="1" y1="11" x2="13" y2="11" stroke="currentColor" strokeWidth="0.7" strokeLinecap="round"/>
       </svg>
     )
   }
   if (category === "wind") {
     return (
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <path d="M2 8 Q4 5 8 8 Q12 11 14 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-        <circle cx="14" cy="8" r="1.5" fill="currentColor" />
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M1 7 Q4 3 7 7 Q10 11 13 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
+        <circle cx="13" cy="7" r="1.5" fill="currentColor"/>
       </svg>
     )
   }
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-      <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.5" />
-      <circle cx="8" cy="8" r="2" fill="currentColor" />
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.5"/>
+      <circle cx="7" cy="7" r="2" fill="currentColor"/>
     </svg>
   )
 }
 
+/* ── Instrument SVG illustrations ── */
 function InstrumentIllustration({ instrument }: { instrument: Instrument }) {
-  const color = instrument.color
+  const c = instrument.warmColor ?? instrument.color
 
   if (instrument.id === "dombra") {
     return (
-      <svg width="80" height="120" viewBox="0 0 80 120" fill="none">
-        {/* Body */}
-        <ellipse cx="40" cy="85" rx="26" ry="30" fill={color} fillOpacity="0.12" stroke={color} strokeWidth="1.2" />
+      <svg width="72" height="120" viewBox="0 0 72 120" fill="none">
+        <ellipse cx="36" cy="85" rx="24" ry="28"
+          fill={c} fillOpacity="0.10" stroke={c} strokeWidth="1.4"/>
         {/* Neck */}
-        <rect x="36" y="20" width="8" height="65" rx="3" fill={color} fillOpacity="0.18" stroke={color} strokeWidth="1" />
+        <rect x="32" y="20" width="8" height="65" rx="4"
+          fill={c} fillOpacity="0.12" stroke={c} strokeWidth="1"/>
         {/* Head */}
-        <ellipse cx="40" cy="16" rx="7" ry="10" fill={color} fillOpacity="0.25" stroke={color} strokeWidth="1" />
+        <ellipse cx="36" cy="16" rx="7" ry="10"
+          fill={c} fillOpacity="0.22" stroke={c} strokeWidth="1"/>
+        {/* Tuning pegs */}
+        <circle cx="30" cy="12" r="2" fill={c} fillOpacity="0.55"/>
+        <circle cx="42" cy="12" r="2" fill={c} fillOpacity="0.55"/>
         {/* Strings */}
-        <line x1="38" y1="18" x2="38" y2="88" stroke={color} strokeWidth="0.8" strokeOpacity="0.8" />
-        <line x1="42" y1="18" x2="42" y2="88" stroke={color} strokeWidth="0.8" strokeOpacity="0.6" />
+        <line x1="34.5" y1="16" x2="34.5" y2="88" stroke={c} strokeWidth="0.7" strokeOpacity="0.80"/>
+        <line x1="37.5" y1="16" x2="37.5" y2="88" stroke={c} strokeWidth="0.7" strokeOpacity="0.60"/>
         {/* Sound hole */}
-        <circle cx="40" cy="82" r="6" fill="none" stroke={color} strokeWidth="0.8" strokeOpacity="0.5" />
+        <circle cx="36" cy="80" r="6" fill="none" stroke={c} strokeWidth="0.8" strokeOpacity="0.50"/>
         {/* Frets */}
-        {[35, 42, 50, 58, 66].map((y) => (
-          <line key={y} x1="36" y1={y} x2="44" y2={y} stroke={color} strokeWidth="0.6" strokeOpacity="0.5" />
+        {[34, 42, 52, 62, 72].map((y) => (
+          <line key={y} x1="32" y1={y} x2="40" y2={y}
+            stroke={c} strokeWidth="0.6" strokeOpacity="0.45"/>
         ))}
+        {/* Decorative soundhole ornament */}
+        {[0, 60, 120, 180, 240, 300].map((a) => {
+          const r = (a * Math.PI) / 180
+          return <circle key={a} cx={36 + 6 * Math.cos(r)} cy={80 + 6 * Math.sin(r)}
+            r="0.8" fill={c} fillOpacity="0.40"/>
+        })}
       </svg>
     )
   }
 
   if (instrument.id === "kobyz") {
     return (
-      <svg width="80" height="120" viewBox="0 0 80 120" fill="none">
-        {/* Body - rounded bowl */}
-        <path
-          d="M20 75 Q15 95 40 110 Q65 95 60 75 Q55 55 40 52 Q25 55 20 75 Z"
-          fill={color}
-          fillOpacity="0.12"
-          stroke={color}
-          strokeWidth="1.2"
-        />
+      <svg width="72" height="120" viewBox="0 0 72 120" fill="none">
+        {/* Pear-shaped body */}
+        <path d="M18 72 Q12 95 36 112 Q60 95 54 72 Q50 52 36 50 Q22 52 18 72 Z"
+          fill={c} fillOpacity="0.10" stroke={c} strokeWidth="1.4"/>
         {/* Neck */}
-        <rect x="37" y="18" width="6" height="38" rx="2" fill={color} fillOpacity="0.2" stroke={color} strokeWidth="1" />
+        <rect x="33" y="18" width="6" height="36" rx="3"
+          fill={c} fillOpacity="0.18" stroke={c} strokeWidth="1"/>
         {/* Scroll */}
-        <path d="M38 14 Q35 8 40 6 Q45 8 42 14" fill={color} fillOpacity="0.3" stroke={color} strokeWidth="0.8" />
+        <path d="M34 14 Q31 6 36 4 Q41 6 38 14"
+          fill={c} fillOpacity="0.30" stroke={c} strokeWidth="0.9"/>
         {/* Strings */}
-        <line x1="39" y1="16" x2="39" y2="95" stroke={color} strokeWidth="0.9" strokeOpacity="0.7" />
-        <line x1="41" y1="16" x2="41" y2="95" stroke={color} strokeWidth="0.9" strokeOpacity="0.5" />
-        {/* Bow arc hint */}
-        <path d="M12 50 Q8 80 12 100" stroke={color} strokeWidth="1" strokeOpacity="0.3" fill="none" strokeDasharray="2 3" />
+        <line x1="35" y1="14" x2="35" y2="96" stroke={c} strokeWidth="0.8" strokeOpacity="0.70"/>
+        <line x1="37" y1="14" x2="37" y2="96" stroke={c} strokeWidth="0.8" strokeOpacity="0.50"/>
+        {/* Bow */}
+        <path d="M10 48 Q6 80 10 102"
+          stroke={c} strokeWidth="1.2" strokeOpacity="0.35" fill="none" strokeDasharray="3 4"/>
+        {/* Membrane markings */}
+        <ellipse cx="36" cy="80" rx="14" ry="8" fill="none"
+          stroke={c} strokeWidth="0.6" strokeOpacity="0.30" strokeDasharray="2 3"/>
       </svg>
     )
   }
 
   if (instrument.id === "jetigen") {
     return (
-      <svg width="100" height="100" viewBox="0 0 100 100" fill="none">
+      <svg width="110" height="90" viewBox="0 0 110 90" fill="none">
         {/* Sound box */}
-        <rect x="15" y="60" width="70" height="25" rx="4" fill={color} fillOpacity="0.12" stroke={color} strokeWidth="1.2" />
-        {/* Bridge */}
-        <line x1="15" y1="60" x2="85" y2="60" stroke={color} strokeWidth="1.5" />
-        {/* Strings ascending */}
-        {[20, 30, 40, 50, 60, 70, 80].map((x, i) => (
-          <line key={x} x1={x} y1="60" x2={x} y2={10 + i * 4} stroke={color} strokeWidth="0.7" strokeOpacity={0.8 - i * 0.08} />
+        <rect x="10" y="60" width="90" height="24" rx="5"
+          fill={c} fillOpacity="0.10" stroke={c} strokeWidth="1.4"/>
+        {/* Ascending strings */}
+        {[16, 28, 40, 52, 64, 76, 88].map((x, i) => (
+          <line key={x} x1={x} y1="60" x2={x} y2={8 + i * 5}
+            stroke={c} strokeWidth="0.75" strokeOpacity={0.85 - i * 0.08}/>
         ))}
         {/* Tuning pegs */}
-        {[20, 30, 40, 50, 60, 70, 80].map((x, i) => (
-          <circle key={x} cx={x} cy={10 + i * 4} r="2" fill={color} fillOpacity="0.6" />
+        {[16, 28, 40, 52, 64, 76, 88].map((x, i) => (
+          <circle key={x} cx={x} cy={8 + i * 5} r="2.5"
+            fill={c} fillOpacity="0.55"/>
+        ))}
+        {/* Bridge line */}
+        <line x1="10" y1="60" x2="100" y2="60" stroke={c} strokeWidth="1.8"/>
+        {/* Small nut markers */}
+        {[16, 28, 40, 52, 64, 76, 88].map((x) => (
+          <rect key={x} x={x - 2} y="57" width="4" height="4" rx="1"
+            fill={c} fillOpacity="0.35"/>
         ))}
       </svg>
     )
@@ -108,68 +131,82 @@ function InstrumentIllustration({ instrument }: { instrument: Instrument }) {
   if (instrument.id === "adyrna") {
     return (
       <svg width="90" height="120" viewBox="0 0 90 120" fill="none">
-        {/* Sound box */}
-        <path d="M10 100 Q10 115 30 115 L30 20 L10 100 Z" fill={color} fillOpacity="0.15" stroke={color} strokeWidth="1.2" />
+        {/* Sound box curved */}
+        <path d="M8 100 Q8 116 26 116 L26 18 L8 100 Z"
+          fill={c} fillOpacity="0.12" stroke={c} strokeWidth="1.4"/>
         {/* Column */}
-        <line x1="30" y1="10" x2="80" y2="110" stroke={color} strokeWidth="2.5" strokeLinecap="round" />
-        {/* Neck */}
-        <line x1="30" y1="10" x2="30" y2="115" stroke={color} strokeWidth="1.5" strokeOpacity="0.6" />
+        <line x1="26" y1="8" x2="80" y2="112"
+          stroke={c} strokeWidth="3" strokeLinecap="round"/>
+        {/* Neck post */}
+        <line x1="26" y1="8" x2="26" y2="116"
+          stroke={c} strokeWidth="1.6" strokeOpacity="0.55"/>
         {/* Strings */}
-        {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => {
-          const x1 = 30
-          const y1 = 20 + i * 11
-          const x2 = 30 + i * 6 + 8
-          const y2 = 108 - i * 3
-          return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke={color} strokeWidth="0.7" strokeOpacity={0.7 - i * 0.05} />
+        {Array.from({ length: 8 }).map((_, i) => {
+          const x1 = 26, y1 = 18 + i * 11
+          const x2 = 26 + i * 7 + 6
+          const y2 = 110 - i * 4
+          return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2}
+            stroke={c} strokeWidth="0.8" strokeOpacity={0.75 - i * 0.06}/>
         })}
+        {/* Peg circles */}
+        {Array.from({ length: 8 }).map((_, i) => (
+          <circle key={i} cx="26" cy={18 + i * 11} r="2.5"
+            fill={c} fillOpacity="0.40"/>
+        ))}
       </svg>
     )
   }
 
   if (instrument.id === "dangyra") {
     return (
-      <svg width="100" height="100" viewBox="0 0 100 100" fill="none">
-        <circle cx="50" cy="50" r="38" fill={color} fillOpacity="0.08" stroke={color} strokeWidth="2" />
-        <circle cx="50" cy="50" r="28" fill={color} fillOpacity="0.05" stroke={color} strokeWidth="0.8" strokeDasharray="4 4" />
+      <svg width="100" height="110" viewBox="0 0 100 110" fill="none">
+        {/* Frame drum */}
+        <circle cx="50" cy="50" r="38"
+          fill={c} fillOpacity="0.08" stroke={c} strokeWidth="2.5"/>
+        {/* Inner skin */}
+        <circle cx="50" cy="50" r="30"
+          fill={c} fillOpacity="0.05" stroke={c} strokeWidth="0.8" strokeDasharray="5 5"/>
         {/* Jingles */}
-        {[0, 60, 120, 180, 240, 300].map((angle) => {
+        {[0, 51.4, 102.9, 154.3, 205.7, 257.1, 308.6].map((angle) => {
           const rad = (angle * Math.PI) / 180
           const x = 50 + 38 * Math.cos(rad)
           const y = 50 + 38 * Math.sin(rad)
           return (
             <g key={angle}>
-              <circle cx={x} cy={y} r="3.5" fill={color} fillOpacity="0.5" stroke={color} strokeWidth="0.8" />
+              <circle cx={x} cy={y} r="4" fill={c} fillOpacity="0.50" stroke={c} strokeWidth="0.8"/>
             </g>
           )
         })}
+        {/* Decorative cross-weave */}
+        <line x1="18" y1="50" x2="82" y2="50" stroke={c} strokeWidth="0.7" strokeOpacity="0.25"/>
+        <line x1="50" y1="18" x2="50" y2="82" stroke={c} strokeWidth="0.7" strokeOpacity="0.25"/>
+        <line x1="23" y1="23" x2="77" y2="77" stroke={c} strokeWidth="0.5" strokeOpacity="0.18"/>
+        <line x1="77" y1="23" x2="23" y2="77" stroke={c} strokeWidth="0.5" strokeOpacity="0.18"/>
+        {/* Center ornament */}
+        <circle cx="50" cy="50" r="8" fill={c} fillOpacity="0.22" stroke={c} strokeWidth="0.8"/>
+        <circle cx="50" cy="50" r="3" fill={c} fillOpacity="0.60"/>
         {/* Handle */}
-        <line x1="50" y1="88" x2="50" y2="105" stroke={color} strokeWidth="4" strokeLinecap="round" />
-        {/* Cross pattern */}
-        <line x1="20" y1="50" x2="80" y2="50" stroke={color} strokeWidth="0.8" strokeOpacity="0.3" />
-        <line x1="50" y1="20" x2="50" y2="80" stroke={color} strokeWidth="0.8" strokeOpacity="0.3" />
-        <circle cx="50" cy="50" r="6" fill={color} fillOpacity="0.3" />
+        <rect x="46" y="88" width="8" height="18" rx="4"
+          fill={c} fillOpacity="0.50" stroke={c} strokeWidth="1"/>
       </svg>
     )
   }
 
-  // Default illustration for shankobyz / syrnai / sherter
+  /* Default - sherter / generic */
   return (
-    <svg width="80" height="120" viewBox="0 0 80 120" fill="none">
-      <path
-        d="M35 10 L35 90 Q35 105 45 108 Q55 110 55 100 L55 95 Q55 88 48 88 L45 88"
-        stroke={color}
-        strokeWidth="3"
-        fill="none"
-        strokeLinecap="round"
-      />
-      {[25, 40, 55, 70].map((y) => (
-        <line key={y} x1="35" y1={y} x2="52" y2={y} stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeOpacity="0.7" />
+    <svg width="72" height="120" viewBox="0 0 72 120" fill="none">
+      <path d="M32 10 L32 88 Q32 106 44 108 Q56 110 56 98 L56 93 Q56 86 48 86 L44 86"
+        stroke={c} strokeWidth="3.5" fill="none" strokeLinecap="round"/>
+      {[24, 40, 58, 76].map((y) => (
+        <line key={y} x1="32" y1={y} x2="52" y2={y}
+          stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeOpacity="0.70"/>
       ))}
-      <circle cx="37" cy="13" r="4" fill={color} fillOpacity="0.3" />
+      <circle cx="34" cy="13" r="5" fill={c} fillOpacity="0.30"/>
     </svg>
   )
 }
 
+/* ── Main card ── */
 export function InstrumentCard({ instrument, index, onPlay }: InstrumentCardProps) {
   const router = useRouter()
 
@@ -178,89 +215,90 @@ export function InstrumentCard({ instrument, index, onPlay }: InstrumentCardProp
     router.push(`/studio/${instrument.id}`)
   }
 
+  /* Map each instrument to warm-palette color */
+  const warmColor = instrument.warmColor ?? instrument.color
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
+    <motion.article
+      id={`instrument-card-${instrument.id}`}
+      initial={{ opacity: 0, y: 36 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.6, delay: index * 0.08 }}
-      className="group relative rounded-sm overflow-hidden cursor-pointer"
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.65, delay: index * 0.09 }}
+      className="card-lift group relative rounded-2xl overflow-hidden cursor-pointer"
       style={{
-        background: "oklch(0.12 0.03 255 / 0.8)",
-        border: "1px solid oklch(0.22 0.04 255)",
-        backdropFilter: "blur(12px)",
+        background: "var(--ivory)",
+        border: "1px solid rgba(200, 148, 42, 0.18)",
+        boxShadow: "var(--shadow-card)",
       }}
-      whileHover={{ y: -4 }}
+      whileHover={{ y: -5 }}
     >
-      {/* Hover glow */}
-      <motion.div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+      {/* Warm accent top band */}
+      <div
+        className="h-1.5 w-full"
         style={{
-          background: `radial-gradient(ellipse at 50% 0%, ${instrument.glowColor} 0%, transparent 70%)`,
+          background: `linear-gradient(90deg, ${warmColor}30, ${warmColor}80, ${warmColor}30)`,
         }}
       />
 
-      {/* Corner accents */}
-      <div
-        className="absolute top-0 left-0 w-4 h-4"
+      {/* Subtle hover sheen */}
+      <motion.div
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-600 pointer-events-none"
         style={{
-          borderTop: `1px solid ${instrument.color}`,
-          borderLeft: `1px solid ${instrument.color}`,
-        }}
-      />
-      <div
-        className="absolute top-0 right-0 w-4 h-4"
-        style={{
-          borderTop: `1px solid ${instrument.color}`,
-          borderRight: `1px solid ${instrument.color}`,
+          background: `radial-gradient(ellipse 80% 50% at 50% 0%, ${warmColor}10 0%, transparent 70%)`,
         }}
       />
 
       <div className="relative p-6 flex flex-col h-full">
-        {/* Header: category + era */}
-        <div className="flex items-center justify-between mb-4">
+
+        {/* Category badge + era */}
+        <div className="flex items-center justify-between mb-5">
           <div
-            className="flex items-center gap-1.5 px-2 py-1 rounded-sm text-xs tracking-wider uppercase"
+            className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium"
             style={{
-              background: `${instrument.color}18`,
-              color: instrument.color,
-              border: `1px solid ${instrument.color}40`,
+              background: `${warmColor}14`,
+              color: warmColor,
+              border: `1px solid ${warmColor}35`,
             }}
           >
             <CategoryIcon category={instrument.category} />
             {categoryLabels[instrument.category]}
           </div>
-          <span
-            className="text-xs"
-            style={{ color: "oklch(0.45 0.04 255)" }}
-          >
+          <span className="text-xs" style={{ color: "var(--text-muted)" }}>
             {instrument.era.split("—")[0].trim()}
           </span>
         </div>
 
         {/* Illustration */}
-        <div className="flex items-center justify-center h-32 mb-5 relative">
+        <div className="flex items-center justify-center h-32 mb-6 relative">
           <motion.div
-            className="animate-float"
-            style={{ animationDelay: `${index * 0.3}s` }}
-            whileHover={{ scale: 1.1 }}
-            transition={{ type: "spring", stiffness: 300 }}
+            className="animate-gentle-float"
+            style={{ animationDelay: `${index * 0.35}s` }}
+            whileHover={{ scale: 1.08 }}
+            transition={{ type: "spring", stiffness: 280 }}
           >
-            <InstrumentIllustration instrument={instrument} />
+            <InstrumentIllustration instrument={{ ...instrument, warmColor }} />
           </motion.div>
         </div>
 
         {/* Name */}
-        <div className="mb-1">
+        <div className="mb-2">
           <h3
-            className="font-serif text-xl font-bold tracking-wide"
-            style={{ color: instrument.color }}
+            className="font-display text-xl font-bold"
+            style={{
+              color: warmColor,
+              fontFamily: "var(--font-playfair, serif)",
+            }}
           >
             {instrument.name}
           </h3>
           <p
-            className="text-sm font-light tracking-widest"
-            style={{ color: "oklch(0.55 0.04 255)" }}
+            className="text-sm mt-0.5"
+            style={{
+              color: "var(--text-muted)",
+              fontStyle: "italic",
+              fontFamily: "var(--font-lora, serif)",
+            }}
           >
             {instrument.kazakh}
           </p>
@@ -269,34 +307,44 @@ export function InstrumentCard({ instrument, index, onPlay }: InstrumentCardProp
         {/* Description */}
         <p
           className="text-sm leading-relaxed mt-2 flex-1"
-          style={{ color: "oklch(0.65 0.03 255)" }}
+          style={{
+            color: "var(--text-secondary)",
+            fontFamily: "var(--font-lora, serif)",
+          }}
         >
           {instrument.description}
         </p>
 
+        {/* Divider */}
+        <div
+          className="my-4 h-px"
+          style={{ background: "rgba(200, 148, 42, 0.15)" }}
+        />
+
         {/* Play button */}
         <motion.button
+          id={`play-${instrument.id}`}
           onClick={handlePlay}
-          className="mt-5 w-full py-2.5 rounded-sm text-sm font-semibold tracking-widest uppercase relative overflow-hidden"
+          className="btn-cultural w-full py-2.5 rounded-full text-sm font-semibold overflow-hidden"
           style={{
-            background: "transparent",
-            color: instrument.color,
-            border: `1px solid ${instrument.color}60`,
+            background: `${warmColor}12`,
+            color: warmColor,
+            border: `1px solid ${warmColor}45`,
           }}
           whileHover={{
-            background: `${instrument.color}15`,
-            boxShadow: `0 0 20px ${instrument.color}30`,
+            background: `${warmColor}22`,
+            boxShadow: `0 4px 18px ${warmColor}28`,
           }}
-          whileTap={{ scale: 0.98 }}
+          whileTap={{ scale: 0.97 }}
         >
           <span className="flex items-center justify-center gap-2">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
-              <polygon points="3,2 11,7 3,12" />
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor">
+              <polygon points="2,1 11,6.5 2,12"/>
             </svg>
-            Play &amp; Learn
+            Ойнап зерттеу
           </span>
         </motion.button>
       </div>
-    </motion.div>
+    </motion.article>
   )
 }

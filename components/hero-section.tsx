@@ -11,127 +11,129 @@ interface HeroSectionProps {
 export function HeroSection({ onEnter }: HeroSectionProps) {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background grid */}
+
+      {/* ── Background warm gradient ── */}
       <div
         className="absolute inset-0"
         style={{
-          backgroundImage: `
-            linear-gradient(oklch(0.55 0.18 255 / 0.06) 1px, transparent 1px),
-            linear-gradient(90deg, oklch(0.55 0.18 255 / 0.06) 1px, transparent 1px)
-          `,
-          backgroundSize: "60px 60px",
+          background:
+            "radial-gradient(ellipse 80% 70% at 50% 40%, rgba(240, 223, 168, 0.55) 0%, rgba(250, 246, 238, 0) 70%)",
         }}
       />
 
-      {/* Radial glow center */}
+      {/* ── Subtle textile-like texture overlay ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background:
-            "radial-gradient(ellipse 60% 50% at 50% 50%, oklch(0.18 0.05 255 / 0.5) 0%, transparent 70%)",
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23C8942A' fill-opacity='0.04'%3E%3Cpath d='M20 20 L26 14 L32 20 L26 26 Z'/%3E%3C/g%3E%3C/svg%3E")`,
         }}
       />
 
-      {/* Animated corner ornaments */}
-      <motion.div
-        className="absolute top-0 left-0"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
-      >
-        <KazakhOrnament size={180} variant="corner" opacity={0.5} animated={false} />
-      </motion.div>
-      <motion.div
-        className="absolute top-0 right-0 scale-x-[-1]"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
-        style={{ transform: "scaleX(-1)" }}
-      >
-        <KazakhOrnament size={180} variant="corner" opacity={0.5} animated={false} />
-      </motion.div>
-      <motion.div
-        className="absolute bottom-0 left-0"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.5, ease: "easeOut", delay: 0.4 }}
-        style={{ transform: "scaleY(-1)" }}
-      >
-        <KazakhOrnament size={180} variant="corner" opacity={0.5} animated={false} />
-      </motion.div>
-      <motion.div
-        className="absolute bottom-0 right-0"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.5, ease: "easeOut", delay: 0.6 }}
-        style={{ transform: "scale(-1,-1)" }}
-      >
-        <KazakhOrnament size={180} variant="corner" opacity={0.5} animated={false} />
-      </motion.div>
+      {/* ── Corner ornaments ── */}
+      {[ 
+        { corner: "top-0 left-0",    transform: "none" },
+        { corner: "top-0 right-0",   transform: "scaleX(-1)" },
+        { corner: "bottom-0 left-0", transform: "scaleY(-1)" },
+        { corner: "bottom-0 right-0",transform: "scale(-1,-1)" },
+      ].map(({ corner, transform }, i) => (
+        <motion.div
+          key={corner}
+          className={`absolute ${corner}`}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.6, delay: i * 0.15, ease: "easeOut" }}
+          style={{ transform }}
+        >
+          <KazakhOrnament size={160} variant="corner" opacity={0.40} animated={false} />
+        </motion.div>
+      ))}
 
-      {/* Border ornament strips */}
-      <div className="absolute top-20 left-0 right-0 flex justify-center">
-        <KazakhOrnament size={800} variant="border" opacity={0.25} animated={false} />
+      {/* ── Top border ornament strip ── */}
+      <div className="absolute top-16 left-0 right-0 flex justify-center overflow-hidden">
+        <KazakhOrnament width={900} height={24} variant="border" opacity={0.30} animated={false} />
       </div>
-      <div className="absolute bottom-20 left-0 right-0 flex justify-center">
-        <KazakhOrnament size={800} variant="border" opacity={0.25} animated={false} />
+      <div className="absolute bottom-16 left-0 right-0 flex justify-center overflow-hidden">
+        <KazakhOrnament width={900} height={24} variant="border" opacity={0.30} animated={false} />
       </div>
 
-      {/* Large background ornament */}
+      {/* ── Large background medallion ── */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <KazakhOrnament size={600} variant="full" opacity={0.08} animated={false} />
-      </div>
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <KazakhOrnament size={380} variant="center" opacity={0.12} animated />
+        <KazakhOrnament size={560} variant="full" opacity={0.07} animated={false} />
       </div>
 
-      {/* Main content */}
-      <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-5xl mx-auto">
+      {/* ── Slowly rotating center medallion ── */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
+        >
+          <KazakhOrnament size={300} variant="center" opacity={0.10} animated={false} />
+        </motion.div>
+      </div>
+
+      {/* ── Main content ── */}
+      <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-4xl mx-auto">
+
         {/* Museum badge */}
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="mb-8"
+          transition={{ duration: 0.9, delay: 0.4 }}
+          className="mb-10"
         >
           <div
-            className="inline-flex items-center gap-3 px-4 py-2 rounded-full text-xs tracking-widest uppercase"
+            className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full text-xs font-medium tracking-wider"
             style={{
-              border: "1px solid oklch(0.78 0.16 75 / 0.4)",
-              background: "oklch(0.78 0.16 75 / 0.08)",
-              color: "var(--gold)",
+              background: "rgba(200, 148, 42, 0.10)",
+              border: "1px solid rgba(200, 148, 42, 0.32)",
+              color: "var(--gold-muted)",
             }}
           >
             <span
-              className="w-1.5 h-1.5 rounded-full animate-pulse"
-              style={{ background: "var(--gold)" }}
+              className="w-1.5 h-1.5 rounded-full"
+              style={{ background: "var(--gold)", opacity: 0.85 }}
             />
-            Виртуалды мұражай · Қазақстан · 2025 ж. құрылған
+            Виртуалды Мұражай · Қазақстан · 2025
           </div>
         </motion.div>
 
-        {/* Main title */}
+        {/* Main titles */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.7 }}
+          transition={{ duration: 1.1, delay: 0.65 }}
+          className="mb-6"
         >
           <h1
-            className="font-serif text-5xl md:text-7xl lg:text-8xl font-black tracking-tight text-balance mb-4 glow-text-gold"
-            style={{ color: "var(--gold)" }}
+            className="font-display text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none"
+            style={{
+              fontFamily: "var(--font-playfair, serif)",
+              color: "var(--gold)",
+            }}
           >
             Мұра
           </h1>
           <h1
-            className="font-serif text-5xl md:text-7xl lg:text-8xl font-black tracking-tight text-balance glow-text-blue"
+            className="font-display text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none mt-1"
             style={{
+              fontFamily: "var(--font-playfair, serif)",
               color: "transparent",
-              WebkitTextStroke: "1px oklch(0.68 0.20 240)",
-              textShadow: "0 0 40px oklch(0.68 0.20 240 / 0.4)",
+              WebkitTextStroke: "1.5px var(--turquoise)",
             }}
           >
             Қозғалыста
           </h1>
+        </motion.div>
+
+        {/* Ornament divider */}
+        <motion.div
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={{ scaleX: 1, opacity: 1 }}
+          transition={{ duration: 0.9, delay: 0.9 }}
+          className="ornament-divider w-full max-w-sm mb-8"
+          style={{ color: "var(--gold)" }}
+        >
+          <span style={{ fontSize: "1.2rem" }}>✦</span>
         </motion.div>
 
         {/* Subtitle */}
@@ -139,34 +141,45 @@ export function HeroSection({ onEnter }: HeroSectionProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1.0 }}
-          className="mt-8 text-lg md:text-xl text-balance leading-relaxed max-w-2xl"
-          style={{ color: "oklch(0.72 0.04 255)" }}
+          className="text-base md:text-lg leading-relaxed max-w-xl"
+          style={{
+            color: "var(--text-secondary)",
+            fontFamily: "var(--font-lora, serif)",
+          }}
         >
-          Қазақ даласының ежелгі музыкалық жанына саяхат жасаңыз. Жасанды интеллектпен жұмыс істейтін иммерсивті виртуалды мұражай тәжірибесі арқылы 8 қасиетті аспапты ойнаңыз, зерттеңіз және ашыңыз.
+          Қазақ даласының ежелгі музыкалық жанына саяхат жасаңыз. 
+          Домбыра, қобыз, жетіген және тағы басқа аспаптарды зерттеңіз, 
+          ойнаңыз және ашыңыз.
         </motion.p>
 
         {/* Stats */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1.2 }}
-          className="flex items-center gap-8 mt-10 mb-12"
+          transition={{ duration: 1, delay: 1.25 }}
+          className="flex items-center gap-10 mt-10 mb-12"
         >
           {[
-            { value: "8", label: "Аспап" },
+            { value: "8",     label: "Аспап" },
             { value: "2000+", label: "Жылдық тарих" },
-            { value: "∞", label: "Мүмкіндіктер" },
-          ].map((stat) => (
+            { value: "∞",     label: "Мүмкіндіктер" },
+          ].map((stat, i) => (
             <div key={stat.label} className="flex flex-col items-center">
+              {i !== 0 && (
+                <div className="absolute -left-5 h-8 w-px" style={{ background: "rgba(200,148,42,0.25)" }} />
+              )}
               <span
-                className="font-serif text-3xl font-bold"
-                style={{ color: "var(--gold)" }}
+                className="font-display text-3xl font-bold"
+                style={{
+                  color: "var(--gold)",
+                  fontFamily: "var(--font-playfair, serif)",
+                }}
               >
                 {stat.value}
               </span>
               <span
-                className="text-xs tracking-widest uppercase mt-1"
-                style={{ color: "oklch(0.55 0.04 255)" }}
+                className="text-xs tracking-wider uppercase mt-1"
+                style={{ color: "var(--text-muted)" }}
               >
                 {stat.label}
               </span>
@@ -176,70 +189,49 @@ export function HeroSection({ onEnter }: HeroSectionProps) {
 
         {/* CTA Button */}
         <motion.button
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 1.4 }}
+          transition={{ duration: 0.8, delay: 1.45 }}
           whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.98 }}
+          whileTap={{ scale: 0.97 }}
           onClick={onEnter}
-          className="relative group px-10 py-4 rounded-sm font-semibold tracking-widest uppercase text-sm overflow-hidden"
+          className="btn-cultural relative group px-10 py-4 rounded-full font-semibold text-base overflow-hidden"
           style={{
-            background: "linear-gradient(135deg, oklch(0.78 0.16 75) 0%, oklch(0.65 0.13 75) 100%)",
-            color: "oklch(0.10 0.025 255)",
-            boxShadow: "0 0 30px oklch(0.78 0.16 75 / 0.4), 0 0 60px oklch(0.78 0.16 75 / 0.15)",
+            background: "linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-muted) 100%)",
+            color: "var(--ivory)",
+            boxShadow: "0 6px 30px rgba(200, 148, 42, 0.35), 0 2px 8px rgba(107, 76, 48, 0.20)",
+            fontFamily: "var(--font-lora, serif)",
           }}
         >
           <span className="relative z-10 flex items-center gap-3">
             Шеберханаға кіру
             <motion.span
               animate={{ x: [0, 5, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="text-base"
+              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
             >
               →
             </motion.span>
           </span>
-          {/* Shimmer effect */}
-          <motion.div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(105deg, transparent 40%, oklch(1 0 0 / 0.2) 50%, transparent 60%)",
-            }}
-            animate={{ x: ["-100%", "200%"] }}
-            transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
-          />
         </motion.button>
 
         {/* Scroll hint */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 2 }}
+          transition={{ duration: 1, delay: 2.2 }}
           className="mt-16 flex flex-col items-center gap-2"
-          style={{ color: "oklch(0.45 0.04 255)" }}
+          style={{ color: "var(--text-muted)" }}
         >
-          <span className="text-xs tracking-widest uppercase">Зерттеу үшін төмен айналдырыңыз</span>
+          <span className="text-xs tracking-wider uppercase">
+            Зерттеу үшін айналдырыңыз
+          </span>
           <motion.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
+            animate={{ y: [0, 7, 0] }}
+            transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
           >
             <ChevronDown size={18} />
           </motion.div>
         </motion.div>
-      </div>
-
-      {/* Scan line effect */}
-      <div
-        className="absolute inset-0 pointer-events-none overflow-hidden opacity-20"
-        aria-hidden="true"
-      >
-        <motion.div
-          className="absolute left-0 right-0 h-px"
-          style={{ background: "linear-gradient(90deg, transparent, oklch(0.68 0.20 240 / 0.6), transparent)" }}
-          animate={{ y: ["0vh", "100vh"] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-        />
       </div>
     </section>
   )

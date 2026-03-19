@@ -19,28 +19,38 @@ export function SiteNav({ onEnterGallery }: SiteNavProps) {
 
   return (
     <motion.nav
-      className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-6 py-4 transition-all duration-300"
+      className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-6 py-4 transition-all duration-500"
       style={{
-        background: scrolled ? "oklch(0.09 0.025 255 / 0.92)" : "transparent",
-        borderBottom: scrolled ? "1px solid oklch(0.20 0.04 255)" : "1px solid transparent",
+        background: scrolled
+          ? "rgba(250, 246, 238, 0.92)"
+          : "transparent",
+        borderBottom: scrolled
+          ? "1px solid rgba(200, 148, 42, 0.20)"
+          : "1px solid transparent",
         backdropFilter: scrolled ? "blur(16px)" : "none",
+        boxShadow: scrolled
+          ? "0 2px 20px rgba(107, 76, 48, 0.08)"
+          : "none",
       }}
-      initial={{ y: -20, opacity: 0 }}
+      initial={{ y: -24, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8 }}
+      transition={{ duration: 0.9, ease: "easeOut" }}
     >
       {/* Logo */}
       <div className="flex items-center gap-3">
-        <KazakhOrnament size={28} variant="center" opacity={0.8} animated={false} />
+        <KazakhOrnament size={30} variant="medallion" opacity={0.75} animated={false} />
         <div>
           <div
-            className="font-serif text-sm font-bold tracking-wider"
-            style={{ color: "var(--gold)" }}
+            className="font-display text-sm font-bold leading-tight"
+            style={{ color: "var(--gold)", fontFamily: "var(--font-playfair, serif)" }}
           >
-            Қазақ мұражайы
+            Қазақ Мұражайы
           </div>
-          <div className="text-xs tracking-widest uppercase" style={{ color: "oklch(0.40 0.04 255)" }}>
-            Виртуалды мұрағат
+          <div
+            className="text-xs tracking-wider uppercase"
+            style={{ color: "var(--text-muted)", fontSize: "0.65rem" }}
+          >
+            Виртуалды Мұрағат
           </div>
         </div>
       </div>
@@ -49,39 +59,50 @@ export function SiteNav({ onEnterGallery }: SiteNavProps) {
       <div className="hidden md:flex items-center gap-6">
         {[
           { label: "Жинақ", href: "#gallery" },
-          { label: "Біз туралы", href: "#about" },
+          { label: "Тарих", href: "#about" },
+          { label: "Мәдениет", href: "#culture" },
         ].map((link) => (
           <a
             key={link.label}
             href={link.href}
-            className="text-xs tracking-widest uppercase font-semibold transition-colors"
-            style={{ color: "oklch(0.50 0.04 255)" }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "var(--gold)")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "oklch(0.50 0.04 255)")}
+            className="text-sm font-medium transition-colors duration-250"
+            style={{ color: "var(--text-secondary)" }}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.color = "var(--gold)")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.color = "var(--text-secondary)")
+            }
           >
             {link.label}
           </a>
         ))}
-        <button
+
+        <motion.button
           onClick={onEnterGallery}
-          className="px-4 py-1.5 rounded-sm text-xs tracking-widest uppercase font-semibold transition-all"
+          className="btn-cultural px-5 py-2 rounded-full text-sm font-semibold transition-all"
           style={{
-            background: "oklch(0.78 0.16 75 / 0.12)",
-            color: "var(--gold)",
-            border: "1px solid oklch(0.78 0.16 75 / 0.35)",
+            background: "linear-gradient(135deg, var(--gold) 0%, var(--gold-muted) 100%)",
+            color: "var(--ivory)",
+            boxShadow: "0 2px 12px rgba(200, 148, 42, 0.28)",
           }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = "oklch(0.78 0.16 75 / 0.2)"
-            e.currentTarget.style.boxShadow = "0 0 16px oklch(0.78 0.16 75 / 0.3)"
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = "oklch(0.78 0.16 75 / 0.12)"
-            e.currentTarget.style.boxShadow = "none"
-          }}
+          whileHover={{ scale: 1.04 }}
+          whileTap={{ scale: 0.97 }}
         >
           Шеберханаға кіру
-        </button>
+        </motion.button>
       </div>
+
+      {/* Mobile menu button */}
+      <button
+        className="md:hidden flex flex-col gap-1.5 p-2"
+        aria-label="Мәзір"
+        style={{ color: "var(--gold)" }}
+      >
+        <span className="block w-6 h-0.5 rounded-full" style={{ background: "var(--gold)" }} />
+        <span className="block w-4 h-0.5 rounded-full" style={{ background: "var(--gold)" }} />
+        <span className="block w-6 h-0.5 rounded-full" style={{ background: "var(--gold)" }} />
+      </button>
     </motion.nav>
   )
 }

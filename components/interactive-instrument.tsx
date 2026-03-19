@@ -74,12 +74,12 @@ function DombraInstrument({ instrument, onPlayNote, activeNotes, handLandmarks, 
     <div className="flex flex-col items-center justify-center w-full h-full">
       <svg width="180" height="340" viewBox="0 0 180 340" fill="none" className="drop-shadow-2xl">
         {/* Body shadow */}
-        <ellipse cx="90" cy="260" rx="65" ry="70" fill="oklch(0.06 0.02 255 / 0.5)" />
+        <ellipse cx="90" cy="260" rx="65" ry="70" fill="rgba(80, 50, 20, 0.15)" />
         {/* Body */}
         <ellipse cx="90" cy="255" rx="62" ry="67"
-          fill="oklch(0.14 0.04 255)"
-          stroke={instrument.color}
-          strokeWidth="1.5"
+          fill="var(--beige)"
+          stroke="var(--gold)"
+          strokeWidth="2"
         />
         {/* Body grain lines */}
         {[-30, -15, 0, 15, 30].map((x) => (
@@ -88,33 +88,32 @@ function DombraInstrument({ instrument, onPlayNote, activeNotes, handLandmarks, 
         ))}
         {/* Sound hole */}
         <circle cx="90" cy="250" r="18"
-          fill="oklch(0.08 0.02 255)"
-          stroke={instrument.color}
-          strokeWidth="1"
-          strokeOpacity="0.6"
+          fill="rgba(80, 50, 20, 0.8)"
+          stroke="var(--gold)"
+          strokeWidth="1.5"
         />
         {/* Decorative ring around sound hole */}
-        <circle cx="90" cy="250" r="22" fill="none" stroke={instrument.color} strokeWidth="0.5" strokeDasharray="3 3" strokeOpacity="0.4" />
+        <circle cx="90" cy="250" r="23" fill="none" stroke="var(--gold)" strokeWidth="1" strokeDasharray="4 2" strokeOpacity="0.4" />
         {/* Neck */}
         <rect x="82" y="50" width="16" height="150" rx="5"
-          fill="oklch(0.13 0.03 255)"
-          stroke={instrument.color}
-          strokeWidth="1"
+          fill="var(--sand)"
+          stroke="var(--gold)"
+          strokeWidth="1.5"
         />
         {/* Frets */}
         {[70, 90, 110, 130, 150, 170].map((y) => (
           <rect key={y} x="82" y={y} width="16" height="2" rx="1"
-            fill={instrument.color}
+            fill="var(--gold)"
             fillOpacity="0.5"
           />
         ))}
         {/* Nut */}
-        <rect x="82" y="60" width="16" height="3" rx="1" fill={instrument.color} fillOpacity="0.8" />
+        <rect x="82" y="60" width="16" height="3" rx="1" fill="var(--gold)" fillOpacity="0.8" />
         {/* Head */}
         <ellipse cx="90" cy="35" rx="18" ry="28"
-          fill="oklch(0.12 0.03 255)"
-          stroke={instrument.color}
-          strokeWidth="1.2"
+          fill="var(--sand)"
+          stroke="var(--gold)"
+          strokeWidth="2"
         />
         {/* Tuning pegs */}
         <circle cx="80" cy="24" r="4" fill={instrument.color} fillOpacity="0.6" />
@@ -154,22 +153,22 @@ function DombraInstrument({ instrument, onPlayNote, activeNotes, handLandmarks, 
                 <motion.line
                   x1={x} y1="62" x2={x} y2="242"
                   stroke={str.color}
-                  strokeWidth="6"
-                  strokeOpacity="0.3"
-                  initial={{ opacity: 0.3 }}
+                  strokeWidth="8"
+                  strokeOpacity="0.15"
+                  initial={{ opacity: 0.2 }}
                   animate={{ opacity: 0 }}
                   transition={{ duration: 1 }}
-                  style={{ filter: `drop-shadow(0 0 6px ${str.color})` }}
+                  style={{ filter: `blur(4px)` }}
                 />
               )}
             </g>
           )
         })}
         {/* Bridge */}
-        <rect x="84" y="240" width="12" height="4" rx="1" fill={instrument.color} fillOpacity="0.7" />
+        <rect x="84" y="240" width="12" height="4" rx="1" fill="var(--gold)" fillOpacity="0.7" />
       </svg>
-      <p className="text-xs tracking-widest uppercase mt-4" style={{ color: "oklch(0.50 0.04 255)" }}>
-        Click strings to play
+      <p className="text-[10px] tracking-widest uppercase font-bold mt-6" style={{ color: "var(--text-muted)" }}>
+        Ойнау үшін ішектерді шертіңіз
       </p>
     </div>
   )
@@ -216,22 +215,22 @@ function JetigenInstrument({ instrument, onPlayNote, activeNotes, handLandmarks,
       <svg width="320" height="220" viewBox="0 0 320 220" fill="none" className="drop-shadow-2xl">
         {/* Sound box */}
         <rect x="20" y="140" width="280" height="60" rx="8"
-          fill="oklch(0.13 0.03 255)"
-          stroke={instrument.color}
-          strokeWidth="1.5"
+          fill="var(--beige)"
+          stroke="var(--gold)"
+          strokeWidth="2"
         />
         {/* Bridge */}
         <rect x="20" y="138" width="280" height="5" rx="2"
-          fill={instrument.color}
+          fill="var(--gold)"
           fillOpacity="0.8"
         />
         {/* Grain lines */}
         {Array.from({ length: 8 }).map((_, i) => (
           <line key={i} x1={30 + i * 35} y1="143" x2={30 + i * 35} y2="198"
-            stroke={instrument.color} strokeWidth="0.4" strokeOpacity="0.15" />
+            stroke="var(--gold)" strokeWidth="0.4" strokeOpacity="0.15" />
         ))}
         {/* Sound holes */}
-        <ellipse cx="160" cy="170" rx="20" ry="8" fill="oklch(0.08 0.02 255)" stroke={instrument.color} strokeWidth="0.8" strokeOpacity="0.4" />
+        <ellipse cx="160" cy="170" rx="20" ry="8" fill="rgba(80, 50, 20, 0.8)" stroke="var(--gold)" strokeWidth="1" strokeOpacity="0.4" />
         {/* Strings */}
         {strings.map((str, i) => {
           const x = 35 + i * 38
@@ -263,19 +262,19 @@ function JetigenInstrument({ instrument, onPlayNote, activeNotes, handLandmarks,
                 <motion.line
                   x1={x} y1={topY + 4} x2={x} y2="140"
                   stroke={str.color}
-                  strokeWidth="8"
-                  strokeOpacity="0.2"
-                  initial={{ opacity: 0.4 }}
+                  strokeWidth="10"
+                  strokeOpacity="0.12"
+                  initial={{ opacity: 0.25 }}
                   animate={{ opacity: 0 }}
                   transition={{ duration: 1.2 }}
-                  style={{ filter: `drop-shadow(0 0 6px ${str.color})` }}
+                  style={{ filter: `blur(6px)` }}
                 />
               )}
               {/* Tuning peg */}
               <circle cx={x} cy={topY} r="5"
-                fill={instrument.color}
+                fill="var(--gold)"
                 fillOpacity="0.5"
-                stroke={instrument.color}
+                stroke="var(--gold)"
                 strokeWidth="0.8"
               />
               {isActive && (
@@ -293,8 +292,8 @@ function JetigenInstrument({ instrument, onPlayNote, activeNotes, handLandmarks,
           )
         })}
       </svg>
-      <p className="text-xs tracking-widest uppercase mt-4" style={{ color: "oklch(0.50 0.04 255)" }}>
-        Click strings to play
+      <p className="text-[10px] tracking-widest uppercase font-bold mt-6" style={{ color: "var(--text-muted)" }}>
+        Ойнау үшін ішектерді шертіңіз
       </p>
     </div>
   )
@@ -343,19 +342,19 @@ function AdyrnaInstrument({ instrument, onPlayNote, activeNotes, handLandmarks, 
       <svg width="260" height="320" viewBox="0 0 260 320" fill="none" className="drop-shadow-2xl">
         {/* Sound box */}
         <path d="M20 290 Q20 310 50 310 L50 60 Q50 40 35 40 L20 290 Z"
-          fill="oklch(0.13 0.03 255)"
-          stroke={instrument.color}
-          strokeWidth="1.5"
+          fill="var(--beige)"
+          stroke="var(--gold)"
+          strokeWidth="2"
         />
         {/* Neck column */}
         <line x1="50" y1="20" x2="200" y2="300"
-          stroke={instrument.color}
+          stroke="var(--gold)"
           strokeWidth="4"
           strokeLinecap="round"
         />
         {/* Fore pillar */}
         <line x1="50" y1="20" x2="50" y2="310"
-          stroke={instrument.color}
+          stroke="var(--gold)"
           strokeWidth="2"
           strokeOpacity="0.5"
         />
@@ -383,12 +382,12 @@ function AdyrnaInstrument({ instrument, onPlayNote, activeNotes, handLandmarks, 
                 <motion.line
                   x1="50" y1={y1} x2={x2} y2="295"
                   stroke={str.color}
-                  strokeWidth="6"
-                  strokeOpacity="0.3"
-                  initial={{ opacity: 0.5 }}
+                  strokeWidth="8"
+                  strokeOpacity="0.15"
+                  initial={{ opacity: 0.3 }}
                   animate={{ opacity: 0 }}
                   transition={{ duration: 1 }}
-                  style={{ filter: `drop-shadow(0 0 4px ${str.color})` }}
+                  style={{ filter: `blur(5px)` }}
                 />
               )}
               <circle cx="50" cy={y1} r="4"
@@ -417,8 +416,8 @@ function AdyrnaInstrument({ instrument, onPlayNote, activeNotes, handLandmarks, 
           strokeWidth="1"
         />
       </svg>
-      <p className="text-xs tracking-widest uppercase mt-2" style={{ color: "oklch(0.50 0.04 255)" }}>
-        Click strings to play
+      <p className="text-[10px] tracking-widest uppercase font-bold mt-6" style={{ color: "var(--text-muted)" }}>
+        Ойнау үшін ішектерді шертіңіз
       </p>
     </div>
   )
@@ -464,31 +463,31 @@ function SherterInstrument({ instrument, onPlayNote, activeNotes, handLandmarks,
       <svg width="160" height="300" viewBox="0 0 160 300" fill="none" className="drop-shadow-2xl">
         {/* Spherical body */}
         <circle cx="80" cy="230" r="60"
-          fill="oklch(0.13 0.03 255)"
-          stroke={instrument.color}
-          strokeWidth="1.5"
+          fill="var(--beige)"
+          stroke="var(--gold)"
+          strokeWidth="2"
         />
         <circle cx="80" cy="230" r="20"
-          fill="oklch(0.08 0.02 255)"
-          stroke={instrument.color}
+          fill="rgba(80, 50, 20, 0.8)"
+          stroke="var(--gold)"
           strokeWidth="0.8"
           strokeOpacity="0.5"
         />
         {/* Neck */}
         <rect x="73" y="55" width="14" height="140" rx="4"
-          fill="oklch(0.12 0.03 255)"
-          stroke={instrument.color}
-          strokeWidth="1"
+          fill="var(--sand)"
+          stroke="var(--gold)"
+          strokeWidth="1.5"
         />
         {/* Frets */}
         {[75, 92, 110, 128, 146, 162].map((y) => (
-          <line key={y} x1="73" y1={y} x2="87" y2={y} stroke={instrument.color} strokeWidth="1.5" strokeOpacity="0.5" />
+          <line key={y} x1="73" y1={y} x2="87" y2={y} stroke="var(--gold)" strokeWidth="1.5" strokeOpacity="0.5" />
         ))}
         {/* Head */}
         <ellipse cx="80" cy="40" rx="16" ry="24"
-          fill="oklch(0.11 0.03 255)"
-          stroke={instrument.color}
-          strokeWidth="1.2"
+          fill="var(--sand)"
+          stroke="var(--gold)"
+          strokeWidth="2"
         />
         <circle cx="73" cy="32" r="3.5" fill={instrument.color} fillOpacity="0.5" />
         <circle cx="87" cy="32" r="3.5" fill={instrument.color} fillOpacity="0.5" />
@@ -521,21 +520,21 @@ function SherterInstrument({ instrument, onPlayNote, activeNotes, handLandmarks,
                 <motion.line
                   x1={x} y1="55" x2={x} y2="225"
                   stroke={str.color}
-                  strokeWidth="8"
-                  strokeOpacity="0.2"
-                  initial={{ opacity: 0.4 }}
+                  strokeWidth="10"
+                  strokeOpacity="0.12"
+                  initial={{ opacity: 0.25 }}
                   animate={{ opacity: 0 }}
                   transition={{ duration: 1 }}
-                  style={{ filter: `drop-shadow(0 0 6px ${str.color})` }}
+                  style={{ filter: `blur(5px)` }}
                 />
               )}
             </g>
           )
         })}
-        <rect x="74" y="222" width="12" height="4" rx="1" fill={instrument.color} fillOpacity="0.7" />
+        <rect x="74" y="222" width="12" height="4" rx="1" fill="var(--gold)" fillOpacity="0.7" />
       </svg>
-      <p className="text-xs tracking-widest uppercase mt-2" style={{ color: "oklch(0.50 0.04 255)" }}>
-        Click strings to play
+      <p className="text-[10px] tracking-widest uppercase font-bold mt-6" style={{ color: "var(--text-muted)" }}>
+        Ойнау үшін ішектерді шертіңіз
       </p>
     </div>
   )
@@ -581,16 +580,16 @@ function PercussionInstrument({ instrument, onPlayNote, activeNotes, handLandmar
       >
         <svg width="200" height="200" viewBox="0 0 200 200" fill="none" className="drop-shadow-2xl">
           <circle cx="100" cy="100" r="80"
-            fill="oklch(0.13 0.03 255)"
-            stroke={instrument.color}
-            strokeWidth="2.5"
+            fill="var(--beige)"
+            stroke="var(--gold)"
+            strokeWidth="3"
           />
           <circle cx="100" cy="100" r="60"
-            fill="oklch(0.10 0.02 255)"
-            stroke={instrument.color}
-            strokeWidth="1"
-            strokeDasharray="6 6"
-            strokeOpacity="0.5"
+            fill="rgba(80, 50, 20, 0.1)"
+            stroke="var(--gold)"
+            strokeWidth="1.5"
+            strokeDasharray="8 8"
+            strokeOpacity="0.4"
           />
           {/* Ritual symbols */}
           {[0, 60, 120, 180, 240, 300].map((angle) => {
@@ -624,9 +623,9 @@ function PercussionInstrument({ instrument, onPlayNote, activeNotes, handLandmar
             animate={isHit ? { r: 35, opacity: 0 } : { r: 20, opacity: 1 }}
             transition={{ duration: 0.4 }}
           />
-          <circle cx="100" cy="100" r="8" fill={instrument.color} fillOpacity="0.7" />
+          <circle cx="100" cy="100" r="8" fill="var(--gold)" fillOpacity="0.8" />
           {/* Handle */}
-          <line x1="100" y1="180" x2="100" y2="210" stroke={instrument.color} strokeWidth="6" strokeLinecap="round" />
+          <line x1="100" y1="180" x2="100" y2="210" stroke="var(--gold)" strokeWidth="8" strokeLinecap="round" />
         </svg>
         {/* Ripple on hit */}
         <AnimatePresence>
@@ -642,8 +641,8 @@ function PercussionInstrument({ instrument, onPlayNote, activeNotes, handLandmar
           )}
         </AnimatePresence>
       </motion.div>
-      <p className="text-xs tracking-widest uppercase" style={{ color: "oklch(0.50 0.04 255)" }}>
-        Click to strike
+      <p className="text-[10px] tracking-widest uppercase font-bold mt-6" style={{ color: "var(--text-muted)" }}>
+        Ойнау үшін ұрыңыз
       </p>
     </div>
   )
@@ -651,8 +650,8 @@ function PercussionInstrument({ instrument, onPlayNote, activeNotes, handLandmar
 
 export function InteractiveInstrument({ instrument, onPlayNote, activeNotes, handLandmarks, learningMode }: InteractiveInstrumentProps) {
   const hint = learningMode ? (
-    <div className="absolute top-2 left-1/2 -translate-x-1/2 bg-black/60 text-[oklch(0.78_0.16_75)] px-3 py-1.5 rounded-sm border border-[oklch(0.78_0.16_75)]/30 text-[10px] tracking-widest uppercase animate-pulse backdrop-blur-sm z-10 pointer-events-none text-center whitespace-nowrap">
-      Үйрену режимі: Ішектерді шертіңіз<br /><span className="text-[8px] opacity-70">Learning Mode: Strike highlighted strings</span>
+    <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-ivory/80 text-gold px-6 py-3 rounded-2xl border-2 border-gold/30 text-[10px] tracking-widest uppercase font-bold shadow-warm backdrop-blur-md z-10 pointer-events-none text-center whitespace-nowrap">
+      Үйрену режимі: Ішектерді шертіңіз<br /><span className="text-[8px] opacity-70">Strike highlighted strings</span>
     </div>
   ) : null;
 

@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { KazakhOrnament } from "@/components/kazakh-ornament"
 
 export interface Point {
   x: number
@@ -113,8 +114,8 @@ export function CameraView({ onHandCoordinates }: CameraViewProps) {
             [0,17]
           ]
 
-          ctx.strokeStyle = "rgba(120,255,214,0.5)"
-          ctx.lineWidth = 2
+          ctx.strokeStyle = "rgba(42, 123, 124, 0.4)" // Turquoise
+          ctx.lineWidth = 3
 
           connections.forEach(([a,b]) => {
 
@@ -137,10 +138,14 @@ export function CameraView({ onHandCoordinates }: CameraViewProps) {
             const x = p.x * canvas.width
             const y = p.y * canvas.height
 
-            ctx.beginPath()
-            ctx.arc(x,y,8,0,Math.PI*2)
-            ctx.fillStyle = "rgba(255,215,0,0.8)"
+            ctx.fillStyle = "rgba(200, 148, 42, 0.8)" // Gold
             ctx.fill()
+            
+            // Add a subtle glow
+            ctx.shadowColor = "rgba(200, 148, 42, 0.4)"
+            ctx.shadowBlur = 10
+            ctx.stroke()
+            ctx.shadowBlur = 0
 
           })
 
@@ -208,8 +213,13 @@ export function CameraView({ onHandCoordinates }: CameraViewProps) {
       />
 
       {hasPermission === null && (
-        <div className="absolute inset-0 flex items-center justify-center text-white">
-          Камера қосылуда...
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-ivory/60 backdrop-blur-md">
+          <div className="animate-slow-rotate mb-4">
+            <KazakhOrnament size={60} variant="medallion" opacity={0.6} />
+          </div>
+          <span className="text-[10px] tracking-[0.2em] uppercase font-bold text-gold">
+            Бейнекамера қосылуда...
+          </span>
         </div>
       )}
 

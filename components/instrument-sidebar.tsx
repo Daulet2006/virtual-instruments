@@ -19,13 +19,13 @@ function InfoSection({ title, content }: { title: string; content: string }) {
       className="space-y-2"
     >
       <h4
-        className="text-xs tracking-widest uppercase font-semibold flex items-center gap-2"
+        className="text-[10px] tracking-[0.2em] uppercase font-bold flex items-center gap-2"
         style={{ color: "var(--gold)" }}
       >
-        <span className="w-3 h-px" style={{ background: "var(--gold)" }} />
+        <span className="w-4 h-px" style={{ background: "var(--gold)" }} />
         {title}
       </h4>
-      <p className="text-sm leading-relaxed" style={{ color: "oklch(0.68 0.03 255)" }}>
+      <p className="text-sm leading-relaxed font-lora" style={{ color: "var(--text-secondary)" }}>
         {content}
       </p>
     </motion.div>
@@ -35,13 +35,13 @@ function InfoSection({ title, content }: { title: string; content: string }) {
 function TuningRow({ label, value }: { label: string; value: string }) {
   return (
     <div
-      className="flex items-center justify-between py-2 border-b"
-      style={{ borderColor: "oklch(0.20 0.04 255)" }}
+      className="flex items-center justify-between py-3 border-b"
+      style={{ borderColor: "rgba(200, 148, 42, 0.1)" }}
     >
-      <span className="text-xs tracking-wider uppercase" style={{ color: "oklch(0.45 0.04 255)" }}>
+      <span className="text-[10px] tracking-widest uppercase font-bold px-1" style={{ color: "var(--text-muted)" }}>
         {label}
       </span>
-      <span className="text-xs font-mono" style={{ color: "oklch(0.75 0.12 75)" }}>
+      <span className="text-xs font-bold" style={{ color: "var(--text-primary)" }}>
         {value}
       </span>
     </div>
@@ -51,36 +51,34 @@ function TuningRow({ label, value }: { label: string; value: string }) {
 export function InstrumentSidebar({ instrument }: InstrumentSidebarProps) {
   return (
     <div
-      className="h-full flex flex-col rounded-sm overflow-hidden"
+      className="h-full flex flex-col rounded-[24px] overflow-hidden shadow-warm border border-gold/10"
       style={{
-        background: "oklch(0.11 0.03 255 / 0.9)",
-        border: "1px solid oklch(0.22 0.04 255)",
-        backdropFilter: "blur(12px)",
+        background: "var(--ivory)",
       }}
     >
       {/* Header */}
       <div
-        className="p-5 border-b"
-        style={{ borderColor: "oklch(0.20 0.04 255)" }}
+        className="p-6 border-b"
+        style={{ borderColor: "rgba(200, 148, 42, 0.1)" }}
       >
         <div className="flex items-start justify-between gap-3">
           <div>
             <h2
-              className="font-serif text-2xl font-bold"
-              style={{ color: instrument.color }}
+              className="font-serif text-2xl font-bold leading-tight"
+              style={{ color: "var(--text-primary)" }}
             >
               {instrument.name}
             </h2>
-            <p className="text-sm tracking-widest" style={{ color: "oklch(0.45 0.04 255)" }}>
+            <p className="text-xs tracking-[0.2em] font-bold uppercase" style={{ color: "var(--gold)" }}>
               {instrument.kazakh}
             </p>
           </div>
           <div
-            className="px-2 py-1 rounded-sm text-xs tracking-wider uppercase"
+            className="px-3 py-1.5 rounded-full text-[9px] tracking-widest uppercase font-bold"
             style={{
-              background: `${instrument.color}18`,
-              color: instrument.color,
-              border: `1px solid ${instrument.color}40`,
+              background: "rgba(200, 148, 42, 0.1)",
+              color: "var(--gold)",
+              border: "1px solid rgba(200, 148, 42, 0.2)",
               whiteSpace: "nowrap",
             }}
           >
@@ -88,16 +86,17 @@ export function InstrumentSidebar({ instrument }: InstrumentSidebarProps) {
           </div>
         </div>
         <p
-          className="mt-3 text-xs leading-relaxed"
-          style={{ color: "oklch(0.58 0.03 255)" }}
+          className="mt-4 text-xs leading-relaxed font-lora italic"
+          style={{ color: "var(--text-secondary)" }}
         >
           {instrument.description}
         </p>
         <div
-          className="mt-3 px-3 py-1.5 rounded-sm text-xs font-mono inline-block"
+          className="mt-4 px-3 py-1.5 rounded-lg text-[10px] font-bold inline-block"
           style={{
-            background: "oklch(0.16 0.04 255)",
-            color: "oklch(0.55 0.08 255)",
+            background: "rgba(200, 148, 42, 0.08)",
+            color: "var(--gold)",
+            border: "1px solid rgba(200, 148, 42, 0.1)",
           }}
         >
           {instrument.era}
@@ -107,10 +106,10 @@ export function InstrumentSidebar({ instrument }: InstrumentSidebarProps) {
       {/* Tabs */}
       <Tabs defaultValue="history" className="flex-1 flex flex-col min-h-0">
         <TabsList
-          className="mx-4 mt-4 mb-0 grid grid-cols-3 rounded-sm h-9"
+          className="mx-6 mt-6 mb-0 grid grid-cols-3 rounded-xl h-10 p-1"
           style={{
-            background: "oklch(0.14 0.04 255)",
-            border: "1px solid oklch(0.20 0.04 255)",
+            background: "var(--sand)",
+            border: "1px solid rgba(200, 148, 42, 0.1)",
           }}
         >
           {[
@@ -121,9 +120,9 @@ export function InstrumentSidebar({ instrument }: InstrumentSidebarProps) {
             <TabsTrigger
               key={tab.id}
               value={tab.id}
-              className="text-xs tracking-wider uppercase rounded-sm data-[state=active]:text-foreground"
+              className="text-[9px] tracking-widest uppercase font-bold rounded-lg data-[state=active]:bg-ivory data-[state=active]:text-gold data-[state=active]:shadow-sm transition-all"
               style={{
-                color: "oklch(0.45 0.04 255)",
+                color: "var(--text-muted)",
               }}
             >
               {tab.label}
@@ -136,21 +135,21 @@ export function InstrumentSidebar({ instrument }: InstrumentSidebarProps) {
             <InfoSection title="Тарихи шығу тегі" content={instrument.history} />
             {instrument.strings && (
               <div
-                className="p-3 rounded-sm"
-                style={{ background: "oklch(0.13 0.03 255)", border: "1px solid oklch(0.20 0.04 255)" }}
+                className="p-4 rounded-xl shadow-inner"
+                style={{ background: "var(--sand)", border: "1px solid rgba(200, 148, 42, 0.1)" }}
               >
-                <p className="text-xs tracking-widest uppercase mb-2" style={{ color: "oklch(0.40 0.04 255)" }}>
+                <p className="text-[10px] tracking-widest uppercase font-bold mb-3" style={{ color: "var(--text-muted)" }}>
                   Ішектердің орналасуы
                 </p>
                 <div className="flex items-center gap-2">
                   {instrument.strings.map((s) => (
                     <div
                       key={s.id}
-                      className="flex-1 text-center py-1.5 rounded-sm text-xs font-mono font-semibold"
+                      className="flex-1 text-center py-2 rounded-lg text-xs font-bold shadow-sm"
                       style={{
-                        background: `${s.color}15`,
-                        color: s.color,
-                        border: `1px solid ${s.color}40`,
+                        background: "var(--ivory)",
+                        color: "var(--text-primary)",
+                        border: "1px solid rgba(200, 148, 42, 0.15)",
                       }}
                     >
                       {s.note}
@@ -164,10 +163,10 @@ export function InstrumentSidebar({ instrument }: InstrumentSidebarProps) {
           <TabsContent value="cultural" className="mt-4 space-y-4">
             <InfoSection title="Мәдени маңызы" content={instrument.cultural} />
             <div
-              className="p-3 rounded-sm"
-              style={{ background: "oklch(0.13 0.03 255)", border: "1px solid oklch(0.20 0.04 255)" }}
+              className="p-4 rounded-xl shadow-inner"
+              style={{ background: "var(--sand)", border: "1px solid rgba(200, 148, 42, 0.1)" }}
             >
-              <p className="text-xs tracking-widest uppercase mb-2" style={{ color: "oklch(0.40 0.04 255)" }}>
+              <p className="text-[10px] tracking-widest uppercase font-bold mb-3" style={{ color: "var(--text-muted)" }}>
                 Аспап туралы мәлімет
               </p>
               <div className="space-y-1.5">
@@ -183,21 +182,21 @@ export function InstrumentSidebar({ instrument }: InstrumentSidebarProps) {
             <InfoSection title="Бұрау және шкала" content={instrument.tuning} />
             {instrument.strings && (
               <div
-                className="p-3 rounded-sm space-y-1.5"
-                style={{ background: "oklch(0.13 0.03 255)", border: "1px solid oklch(0.20 0.04 255)" }}
+                className="p-4 rounded-xl shadow-inner space-y-2"
+                style={{ background: "var(--sand)", border: "1px solid rgba(200, 148, 42, 0.1)" }}
               >
-                <p className="text-xs tracking-widest uppercase mb-3" style={{ color: "oklch(0.40 0.04 255)" }}>
+                <p className="text-[10px] tracking-widest uppercase font-bold mb-4" style={{ color: "var(--text-muted)" }}>
                   Ішек жиіліктері
                 </p>
                 {instrument.strings.map((s) => (
-                  <div key={s.id} className="flex items-center justify-between">
+                  <div key={s.id} className="flex items-center justify-between py-1 px-1">
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full" style={{ background: s.color }} />
-                      <span className="text-xs font-mono font-semibold" style={{ color: s.color }}>
+                      <div className="w-2 h-2 rounded-full" style={{ background: "var(--gold)" }} />
+                      <span className="text-xs font-bold" style={{ color: "var(--text-primary)" }}>
                         {s.note}
                       </span>
                     </div>
-                    <span className="text-xs font-mono" style={{ color: "oklch(0.45 0.04 255)" }}>
+                    <span className="text-[11px] font-bold opacity-60" style={{ color: "var(--text-muted)" }}>
                       {s.frequency.toFixed(2)} Hz
                     </span>
                   </div>
@@ -205,10 +204,10 @@ export function InstrumentSidebar({ instrument }: InstrumentSidebarProps) {
               </div>
             )}
             <div
-              className="p-3 rounded-sm"
-              style={{ background: `${instrument.color}08`, border: `1px solid ${instrument.color}25` }}
+              className="p-4 rounded-xl"
+              style={{ background: "var(--sand)", border: "1px solid rgba(200, 148, 42, 0.1)" }}
             >
-              <p className="text-xs" style={{ color: "oklch(0.55 0.04 255)" }}>
+              <p className="text-[11px] font-lora italic leading-relaxed" style={{ color: "var(--text-secondary)" }}>
                 Аспаптың ішектерін немесе оң жақ панельдегі түймелерді басып, әр нота қалай естілетінін тыңдап көріңіз.
               </p>
             </div>
